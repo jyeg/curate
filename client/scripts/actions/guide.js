@@ -66,15 +66,22 @@ module.exports = {
 					sectionArr.push(a);
 				});
 				var fml = {};
-
+				var linksArr = [];
 				sectionArr.forEach(function(section){
-					fml[section[0]] = section[1]
+					var linkObj = {};
+					if(section[0] === 'link'){
+						linkObj[section[0]]=section[1];
+						linksArr.push(linkObj);
+						fml['links']=linksArr;
+					}else{
+						fml[section[0]] = section[1];
+					}
 				});
 				arr.push(fml);
 				obj = {};
 			}
 		});
-		obj['sections'] = arr;
+		obj['sections'] = JSON.stringify(arr);
 		return obj;
 	},
 

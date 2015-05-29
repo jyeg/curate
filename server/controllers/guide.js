@@ -48,30 +48,31 @@ var readGuide = function (req, res, next) {
 var createGuide = function(req, res, next) {
   // add assert for requiring a title to the guide
   console.log('createGuide controller POST response');
-  var dummyReq = {
-    title: 'How to learn Flux & React',
-    description: 'description stuff',
-    sections: [
-      {
-        title: 'react stuff',
-        description:'learn react',
-        links:
-          [
-            {title: 'react link', url:'http://reactjs.com'}
-          ]
-      }
-    ],
-    userId: 1
-  };
+  var dummyReq = req.body;
+	//{
+  //  title: 'How to learn Flux & React',
+  //  description: 'description stuff',
+  //  sections: [
+  //    {
+  //      title: 'react stuff',
+  //      description:'learn react',
+  //      links:
+  //        [
+  //          {title: 'react link', url:'http://reactjs.com'}
+  //        ]
+  //    }
+  //  ],
+  //  userId: 1
+  //};
 
   console.log('createGuide controller POST req.body', req.body);
   var guide = req.body;
 
   //Save guide data
   Guide.create({ //create guide entry
-    title: dummyReq.title,
-    description: dummyReq.description,
-    userId: dummyReq.userId
+    title: dummyReq.title || 'title',
+    description: dummyReq.description || 'blah',
+    userId: 1
   })
   .then(function(guide){
     //create section obj with guide id
@@ -80,7 +81,7 @@ var createGuide = function(req, res, next) {
       Section.create({
         title: section.title,
         description: section.description,
-        guideId: guideId,
+        guideId: guideId
       })
       //create link entry with its section id
       .then(function(newSection){
