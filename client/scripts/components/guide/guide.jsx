@@ -5,7 +5,6 @@ var DefaultLayout = require('../layouts/default.jsx');
 var guideActions = require('../../actions/guide');
 var SectionList = require('./sectionList.jsx');
 var sectionStore = require('../../stores/sections');
-var SectionTextInput = require('./sectionTextInput.jsx')
 
 var GuideComponent = React.createClass({
 	getInitialState: function () {
@@ -46,7 +45,7 @@ var GuideComponent = React.createClass({
 						</li>
             </ul>
             </div>
-            <SectionList sections={this.state.sections}/>
+						<SectionList sections={this.state.sections} name="sections"/>
 						<input type="submit" name="save"></input>
 				</form>
 				</div>
@@ -60,7 +59,10 @@ var GuideComponent = React.createClass({
 	handleSubmit: function(e) {
 		e.preventDefault();
 		//console.log('in handle submit view', e.currentTarget);
+		//console.log(this.state.elements);
+		//debugger;
 		var form = e.currentTarget;
+		//this.refs.form.getDOMNode();
 		guideActions.createGuide(form);
 	}
 

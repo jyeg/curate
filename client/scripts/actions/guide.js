@@ -32,7 +32,6 @@ module.exports = {
 	},
 
 	setGuides: function(guides) {
-		debugger;
 		Dispatcher.handleViewAction({
 			actionType: sectionConstants.SET_GUIDES,
 			guides: guides
@@ -52,9 +51,30 @@ module.exports = {
 		return cookies.token;
 	},
 
+	parseForm: function(data){
+		//title=s&description=asdf&link=asdf& title=dd&description=dd
+		var obj = {};
+		var arr = [];
+		var a = data.split('title').forEach(function(val, idx){
+			//["=s&description=asdf&link=asdf&", "=dd&description=dd"]
+			if(val !== ''){
+				var id = 'section';
+				var temp = "title"+val.replace(/&/g,',');
+				temp = temp.replace(/=/g,':');
+				if(idx === 1) temp = temp.substr(0,temp.length-1);
+				obj[id] = temp;
+				arr.push(obj);
+				obj = {};
+			}
+		});
+		a = JSON.stringify(arr);
+		return a;
+	},
+
 	postForm: function(form, callback) {
 		var self = this;
-		var postData = serialize(form);
+		var postData = this.parseForm(serialize(form));
+		//"[{"section1":"title:test,description:asdf,link:dffd,link:asdf"},{"section2":"title:asdf,description:asdf,link:fffdf"}]"
 		var postUrl = form.getAttribute('action') || window.location.pathname;
 		var token = self.getToken();
 		var options = callback.options || {};
@@ -71,23 +91,7 @@ module.exports = {
 				console.log('guide post response', res);
 				if (res.ok) {
 					var userData;
-					// If auth token needs to be stored
-					//if (options.setToken) {
-					//	// Store token in cookie that expires in a week
-					//	self.setToken(res.body.token, 7);
-					//}
-					//// If user needs to be updated
-					//if (options.updateUser) {
-					//	userData = res.body.user;
-					//	userData.loggedIn = true;
-					//
-					//	self.setUser(userData);
-					//}
-					//// If user needs to be destroyed
-					//if (options.destroyUser) {
-					//	// Log user out
-					//	self.logout();
-					//}
+
 					if (callback && callback.success) {
 						callback.success(res);
 					}
