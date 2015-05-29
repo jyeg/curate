@@ -15,7 +15,7 @@ var SectionListComponent = React.createClass({
 		var htmlSections = sectionList.map(function(sec, idx){
 			/* jshint ignore:start */
 			return (
-				<Section key={idx} index={idx} sec={sec}/>
+				<Section key={idx} index={idx} sec={sec} name="section"/>
 			);
 			/* jshint ignore:end */
 		});

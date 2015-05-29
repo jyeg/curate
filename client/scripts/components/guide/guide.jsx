@@ -33,7 +33,7 @@ var GuideComponent = React.createClass({
 			<DefaultLayout>
         <div className="main-container">
 					<form method="post" action="/guide" onSubmit={this.handleSubmit}>
-						<SectionList sections={this.state.sections}/>
+						<SectionList sections={this.state.sections} name="sections"/>
 						<input type="submit" name="save"></input>
 				</form>
 				</div>
@@ -47,7 +47,10 @@ var GuideComponent = React.createClass({
 	handleSubmit: function(e) {
 		e.preventDefault();
 		//console.log('in handle submit view', e.currentTarget);
+		//console.log(this.state.elements);
+		//debugger;
 		var form = e.currentTarget;
+		//this.refs.form.getDOMNode();
 		guideActions.createGuide(form);
 	}
 
