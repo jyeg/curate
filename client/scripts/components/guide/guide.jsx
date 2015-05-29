@@ -5,6 +5,7 @@ var DefaultLayout = require('../layouts/default.jsx');
 var guideActions = require('../../actions/guide');
 var SectionList = require('./sectionList.jsx');
 var sectionStore = require('../../stores/sections');
+var SectionTextInput = require('./sectionTextInput.jsx');
 
 var GuideComponent = React.createClass({
 	getInitialState: function () {
