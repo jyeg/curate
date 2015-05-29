@@ -63,6 +63,7 @@ var GuideComponent = React.createClass({
 		//console.log(this.state.elements);
 		//debugger;
 		var form = e.currentTarget;
+		var children = this.props.children;
 		//this.refs.form.getDOMNode();
 		guideActions.createGuide(form);
 	}
