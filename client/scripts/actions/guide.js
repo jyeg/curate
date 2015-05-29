@@ -52,23 +52,30 @@ module.exports = {
 	},
 
 	parseForm: function(data){
-		//title=s&description=asdf&link=asdf& title=dd&description=dd
+		//title=s&description=asdf&link=asdf&title=dd&description=dd
 		var obj = {};
 		var arr = [];
 		var a = data.split('title').forEach(function(val, idx){
 			//["=s&description=asdf&link=asdf&", "=dd&description=dd"]
+			var sectionArr = [];
 			if(val !== ''){
-				var id = 'section';
-				var temp = "title"+val.replace(/&/g,',');
-				temp = temp.replace(/=/g,':');
+				var temp = "title"+val.replace(/=/g,':');
 				if(idx === 1) temp = temp.substr(0,temp.length-1);
-				obj[id] = temp;
-				arr.push(obj);
+				var sec = temp.split('&').map(function(portion, index){
+					var a = portion.split(':');
+					sectionArr.push(a);
+				});
+				var fml = {};
+
+				sectionArr.forEach(function(section){
+					fml[section[0]] = section[1]
+				});
+				arr.push(fml);
 				obj = {};
 			}
 		});
-		a = JSON.stringify(arr);
-		return a;
+		obj['sections'] = arr;
+		return obj;
 	},
 
 	postForm: function(form, callback) {
