@@ -77,7 +77,9 @@ var createGuide = function(req, res, next) {
   .then(function(guide){
     //create section obj with guide id
     var guideId = guide.get('id');
-    dummyReq.sections.forEach(function(section){
+    var sectionsArr = JSON.parse(dummyReq.sections);
+			console.log(sectionsArr);
+			sectionsArr.forEach(function(section){
       Section.create({
         title: section.title,
         description: section.description,
@@ -91,8 +93,8 @@ var createGuide = function(req, res, next) {
         console.log('section', section);
         section.links.forEach(function(link){
           Link.create({
-            title: link.title,
-            url: link.url,
+            title: link.title || 'blah',
+            url: link.url || 'blah',
             sectionId: sectionId
           });
         });
