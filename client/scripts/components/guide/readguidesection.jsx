@@ -15,12 +15,14 @@ var ReadGuideSectionComponent = React.createClass({
       return(
         <div key={idx}>
         <ul>
-          <li>{link.title}</li>
+          <li>{link.linkTitle}</li>
           <li>{link.url}</li>
+					<li>{link.linkDescription}</li>
+					<li>{link.contentTypes}</li>
+					<li>{link.linkDuration}</li>
         </ul>
          <Vote votes={link.votes} type="link" linkIndex={idx} sectionIndex={self.props.index} />
         </div>
-
         )
     });
 
