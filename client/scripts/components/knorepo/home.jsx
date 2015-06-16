@@ -3,7 +3,7 @@
 var React = require('react');
 var DefaultLayout = require('../layouts/default.jsx');
 var routeActions = require('../../actions/routes');
-var CuratedList = require('../knorepo/curatedList.jsx');
+var CuratedList = require('../knorepo/CuratedList.jsx');
 var FavoritesList = require('../knorepo/favoritesList.jsx');
 
 
